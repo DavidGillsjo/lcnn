@@ -201,9 +201,7 @@ def main():
             save_heatmap(f"{path}_0", im[::, ::], junctions, edges_pos, edges_neg)
             print("Finishing", os.path.join(data_output, batch, prefix))
 
-        for data in dataset:
-            handle(data)
-        # parmap(handle, dataset, 12)
+        parmap(handle, dataset, 12)
 
 
 if __name__ == "__main__":

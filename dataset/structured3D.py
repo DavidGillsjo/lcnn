@@ -58,13 +58,13 @@ def save_heatmap(prefix, image, junctions, edges_pos, edges_neg):
     junc = np.hstack([junctions[:,::-1], np.zeros([junctions.shape[0],1])]).astype(np.float32)
     Lpos = edges_pos.astype(np.int)
     lpos = np.stack([
-        junc[edges_pos[:,0], None],
-        junc[edges_pos[:,1], None]
+        junc[edges_pos[:,0]],
+        junc[edges_pos[:,1]]
         ], axis=1)
     Lneg = edges_neg.astype(np.int)
     lneg = np.stack([
-        junc[edges_neg[:,0], None],
-        junc[edges_neg[:,1], None]
+        junc[edges_neg[:,0]],
+        junc[edges_neg[:,1]]
         ], axis=1)
 
 

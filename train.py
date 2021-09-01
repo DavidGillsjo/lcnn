@@ -68,6 +68,7 @@ def main():
     M.update(C.model)
     pprint.pprint(C, indent=4)
     resume_from = C.io.resume_from
+    transfer_from = C.io.transfer_from
 
     # WARNING: L-CNN is still not deterministic
     random.seed(0)
@@ -104,7 +105,7 @@ def main():
         **kwargs,
     )
     val_loader = torch.utils.data.DataLoader(
-        WireframeDataset(datadir, split="valid"),
+        WireframeDataset(datadir, split="val"),
         shuffle=False,
         batch_size=M.batch_size_eval,
         **kwargs,
@@ -115,6 +116,10 @@ def main():
 
     if resume_from:
         checkpoint = torch.load(osp.join(resume_from, "checkpoint_latest.pth"))
+
+    if transfer_from:
+        checkpoint = torch.load(transfer_from)
+        print('Loading model from', transfer_from)
 
     # 2. model
     if M.backbone == "stacked_hourglass":
@@ -131,7 +136,7 @@ def main():
     model = MultitaskLearner(model)
     model = LineVectorizer(model)
 
-    if resume_from:
+    if resume_from or transfer_from:
         model.load_state_dict(checkpoint["model_state_dict"])
     model = model.to(device)
 

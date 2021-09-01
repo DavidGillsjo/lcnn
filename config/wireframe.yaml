@@ -1,17 +1,18 @@
 io:
   logdir: logs/
-  datadir: data/wireframe/
+  datadir: data/Structured3D_wf_open_doors_1mm/
   resume_from:
-  num_workers: 4
-  tensorboard_port: 0
-  validation_interval: 24000
+  transfer_from: data/190418-201834-f8934c6-lr4d10-312k.pth.tar
+  num_workers: 5
+  tensorboard_port: 6006
+  validation_interval: 112000
 
 model:
   image:
-      mean: [109.730, 103.832, 98.681]
-      stddev: [22.275, 22.124, 23.229]
+      mean: [142.278, 150.265, 154.994]
+      stddev: [64.144, 61.237, 59.377]
 
-  batch_size: 6
+  batch_size: 10
   batch_size_eval: 2
 
   # backbone multi-task parameters
@@ -65,5 +66,5 @@ optim:
   lr: 4.0e-4
   amsgrad: True
   weight_decay: 1.0e-4
-  max_epoch: 24
+  max_epoch: 40
   lr_decay_epoch: 10

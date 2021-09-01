@@ -26,6 +26,7 @@ import skimage.draw
 import matplotlib.pyplot as plt
 from docopt import docopt
 from scipy.ndimage import zoom
+from tqdm import tqdm
 
 try:
     sys.path.append(".")
@@ -180,6 +181,7 @@ def main():
 
     os.makedirs(data_output, exist_ok=True)
     for batch in ["train", "val", "test"]:
+        print(f'Batch {batch}')
         anno_file = os.path.join(data_root, f"{batch}.json")
 
         with open(anno_file, "r") as f:
@@ -192,16 +194,16 @@ def main():
             edges_pos = np.array(data["edges_positive"]).reshape(-1, 2)
             edges_neg = np.array(data["edges_negative"]).reshape(-1, 2)
             if len(edges_neg) == 0:
-                print("Skip", os.path.join(data_output, batch, prefix))
+                # print("Skip", os.path.join(data_output, batch, prefix))
                 return
             os.makedirs(os.path.join(data_output, batch), exist_ok=True)
 
 
             path = os.path.join(data_output, batch, prefix)
             save_heatmap(f"{path}_0", im[::, ::], junctions, edges_pos, edges_neg)
-            print("Finishing", os.path.join(data_output, batch, prefix))
+            # print("Finishing", os.path.join(data_output, batch, prefix))
 
-        parmap(handle, dataset, 12)
+        parmap(handle, dataset, 12, progress_bar=tqdm)
 
 
 if __name__ == "__main__":

@@ -82,7 +82,7 @@ def main():
     model.eval()
 
     loader = torch.utils.data.DataLoader(
-        WireframeDataset(args["<image-dir>"], split="valid"),
+        WireframeDataset(args["<image-dir>"], split="test"),
         shuffle=False,
         batch_size=M.batch_size,
         collate_fn=collate,
@@ -100,7 +100,7 @@ def main():
                 "mode": "validation",
             }
             H = model(input_dict)["preds"]
-            for i in range(M.batch_size):
+            for i in range(image.size(0)):
                 index = batch_idx * M.batch_size + i
                 np.savez(
                     osp.join(args["<output-dir>"], f"{index:06}.npz"),

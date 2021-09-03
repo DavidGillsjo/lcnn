@@ -28,7 +28,7 @@ from docopt import docopt
 import lcnn.utils
 import lcnn.metric
 
-GT = "data/wireframe/valid/*.npz"
+GT = "data/Structured3D_wf_open_doors_1mm/test/*.npz"
 
 
 def line_score(path, threshold=5):

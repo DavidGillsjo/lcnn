@@ -29,7 +29,7 @@ from scipy.io import loadmat
 import lcnn.models
 from lcnn.metric import mAPJ, post_jheatmap
 
-GT = "data/wireframe/valid/*.npz"
+GT = "data/Structured3D_wf_open_doors_1mm/test/*.npz"
 IM = "data/wireframe/valid-images/*.jpg"
 WF = "/data/wirebase/result/junc/2/17"
 AFM = "/data/wirebase/result/wireframe/afm/*.npz"
